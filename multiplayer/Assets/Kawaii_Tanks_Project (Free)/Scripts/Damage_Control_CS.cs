@@ -55,13 +55,8 @@ namespace ChobiAssets.KTP
             Set_Damage_Text();
         }
 
-        public override void OnNetworkSpawn()
-        {
-           if(!IsOwner)
-           {
-                Destroy(this);
-           }
-        }
+        
+
         void Set_Damage_Text()
         {
             if (textPrefab == null || string.IsNullOrEmpty(canvasName) || initialDurability == Mathf.Infinity)
@@ -85,11 +80,26 @@ namespace ChobiAssets.KTP
             displayScript.damageControlScript = this;
         }
 
+        [ServerRpc]
+        void FireServerRpc()
+        {
+            FireClientRpc();
+        }
+
+        [ClientRpc]
+        void FireClientRpc()
+        {
+            FireServerRpc();
+        }
 
         void Update()
         {
+            if (!IsOwner)
+                return;
             // Check the hight and the rotation.
             Check_Height_And_Rotation();
+            FireServerRpc();
+            FireClientRpc();
         }
 
 

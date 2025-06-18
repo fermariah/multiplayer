@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
 
 namespace ChobiAssets.KTP
 {
 
-    public class Game_Controller_CS : MonoBehaviour
+    public class Game_Controller_CS : NetworkBehaviour
     {
         /*
 		 * This script is attached to the "Game_Controller" in the scene.
@@ -86,7 +88,13 @@ namespace ChobiAssets.KTP
             idScriptsList.Add(idScript);
         }
 
-
+        public override void OnNetworkSpawn()
+        {
+            if (!IsOwner)
+            {
+                Destroy(this);
+            }
+        }
         void Update()
         {
             // Reload the scene.
