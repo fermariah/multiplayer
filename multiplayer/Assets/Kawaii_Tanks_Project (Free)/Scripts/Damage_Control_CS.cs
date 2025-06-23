@@ -89,7 +89,8 @@ namespace ChobiAssets.KTP
         [ClientRpc]
         void FireClientRpc()
         {
-            FireServerRpc();
+            if (!IsOwner)
+                FireClientRpc();
         }
 
         void Update()
