@@ -855,12 +855,12 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: 768e0f6c-8acd-474f-b349-7ebac6253a38
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
+  projectName: multiplayer
   organizationId: unity_8a2990b9cbfe8a7d19f5
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
