@@ -1,16 +1,25 @@
 using UnityEngine;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using Unity.Services.Lobbies.Models;
 
 public class LobbyManager : MonoBehaviour
 {
+    Lobby hostLobby, joinnedLobby;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
-        
+        await UnityServices.InitializeAsync();
     }
 
-    // Update is called once per frame
-    void Update()
+   async void Authenticate()
     {
-        
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+    }
+
+    async public void CreateLobby()
+    {
+        Authenticate();
     }
 }
