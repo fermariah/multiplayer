@@ -2,6 +2,8 @@ using UnityEngine;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Lobbies;
+
 
 public class LobbyManager : MonoBehaviour
 {
@@ -21,5 +23,8 @@ public class LobbyManager : MonoBehaviour
     async public void CreateLobby()
     {
         Authenticate();
+        hostLobby = await Lobbies.Instance.CreateLobbyAsync("lobby", 4);
     }
+
+
 }
