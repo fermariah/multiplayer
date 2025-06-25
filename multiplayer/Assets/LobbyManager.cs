@@ -62,7 +62,7 @@ public class LobbyManager : MonoBehaviour
 
     Player GetPlayer()
     {
-        Player player = new Player();
+        Player player = new Player()
         {
             Data = new Dictionary<string, PlayerDataObject>
             {
