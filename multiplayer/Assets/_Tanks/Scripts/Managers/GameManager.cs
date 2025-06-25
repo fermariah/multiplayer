@@ -81,8 +81,8 @@ namespace Tanks.Complete
             m_StartWait = new WaitForSeconds (m_StartDelay);
             m_EndWait = new WaitForSeconds (m_EndDelay);
 
-            SpawnAllTanks();
-            SetCameraTargets();
+            //SpawnAllTanks();
+            //SetCameraTargets();
 
             // Once the tanks have been created and the camera is using them as targets, start the game.
             StartCoroutine (GameLoop ());
