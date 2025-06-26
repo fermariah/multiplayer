@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 namespace Tanks.Complete
 {
-    public class TankShooting : MonoBehaviour
+    public class TankShooting : NetworkBehaviour
     {
         public Rigidbody m_Shell;                   // Prefab of the shell.
         public Transform m_FireTransform;           // A child of the tank where the shells are spawned.
@@ -83,6 +84,8 @@ namespace Tanks.Complete
 
         private void Update ()
         {
+            if (!IsOwner)
+                return;
             // Computer and Human control Tank use 2 different update functions 
             if (!m_IsComputerControlled)
             {
@@ -129,6 +132,7 @@ namespace Tanks.Complete
                 // ... use the max force and launch the shell.
                 m_CurrentLaunchForce = m_MaxLaunchForce;
                 Fire ();
+                FireServerRpc();
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
             else if (m_IsCharging && !m_Fired)
@@ -144,6 +148,7 @@ namespace Tanks.Complete
                 // ... launch the shell.
                 Fire ();
                 m_IsCharging = false;
+                FireServerRpc();
             }
         }
         
@@ -192,6 +197,19 @@ namespace Tanks.Complete
             }
         }
 
+        [ServerRpc]
+        void FireServerRpc()
+        {
+            FireClientRpc();
+        }
+
+        [ClientRpc]
+        void FireClientRpc()
+        {
+            FireServerRpc();
+            if (!IsOwner)
+                Fire();
+        }
 
         private void Fire ()
         {

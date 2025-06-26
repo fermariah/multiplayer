@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using Unity.Netcode;
 
 namespace Tanks.Complete
 {
     //Ensure it run before the TankShooting component as TankShooting grabs the InputUser from this when there are no
     //GameManager set (used during learning experience to test tank in empty scenes)
     [DefaultExecutionOrder(-10)]
-    public class TankMovement : MonoBehaviour
+    public class TankMovement : NetworkBehaviour
     {
         [Tooltip("The player number. Without a tank selection menu, Player 1 is left keyboard control, Player 2 is right keyboard")]
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
@@ -85,6 +86,13 @@ namespace Tanks.Complete
             }
         }
 
+        public override void OnNetworkSpawn()
+        {
+           if(!IsOwner)
+           {
+                Destroy(this);
+           }
+        }
 
         private void Start ()
         {
