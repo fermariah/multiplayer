@@ -58,11 +58,11 @@ namespace Tanks.Complete
             {
                 m_HasActivePowerUp = true;
                 m_PowerUpHUD.SetActivePowerUp(PowerUp.PowerUpType.ShootingBonus, duration);
-                m_TankShooting.m_ShotCooldown *= cooldownReduction;
+                
                 // Wait for the duration of the power up
                 yield return new WaitForSeconds(duration);
                 // Revert the shooting boost after the duration ends
-                m_TankShooting.m_ShotCooldown /= cooldownReduction;
+               
                 m_HasActivePowerUp = false;
             }
         }
@@ -70,7 +70,7 @@ namespace Tanks.Complete
         // Grants the tank a temporary shield if it does not already have one
         public void PickUpShield(float shieldAmount, float duration)
         {
-            if (!m_TankHealth.m_HasShield)
+           
                 StartCoroutine(ActivateShield(shieldAmount, duration));
         }
 
@@ -80,18 +80,17 @@ namespace Tanks.Complete
             // Activate the shield
             m_HasActivePowerUp = true;
             m_PowerUpHUD.SetActivePowerUp(PowerUp.PowerUpType.DamageReduction, duration);
-            m_TankHealth.ToggleShield(shieldAmount);
+            
             // Wait for the duration of the power up
             yield return new WaitForSeconds(duration);
             // Deactivate the shield
-            m_TankHealth.ToggleShield(shieldAmount);
-            m_HasActivePowerUp = false;
+           
         }
 
         // Increases the health of the tank
         public void PowerUpHealing(float healAmount)
         {
-            m_TankHealth.IncreaseHealth(healAmount);
+            
             m_PowerUpHUD.SetActivePowerUp(PowerUp.PowerUpType.Healing, 1.0f);
         }
 
@@ -105,10 +104,10 @@ namespace Tanks.Complete
         {
             m_HasActivePowerUp = true;
             m_PowerUpHUD.SetActivePowerUp(PowerUp.PowerUpType.Invincibility, duration);
-            m_TankHealth.ToggleInvincibility();
+      
             yield return new WaitForSeconds(duration);
             m_HasActivePowerUp = false;
-            m_TankHealth.ToggleInvincibility();
+          
         }
 
         // Equips the tank with a special shell that increases damage
@@ -116,7 +115,7 @@ namespace Tanks.Complete
         {
             m_HasActivePowerUp = true;
             m_PowerUpHUD.SetActivePowerUp(PowerUp.PowerUpType.DamageMultiplier, 0f);
-            m_TankShooting.EquipSpecialShell(damageMultiplier);
+            
         }
     }
 }

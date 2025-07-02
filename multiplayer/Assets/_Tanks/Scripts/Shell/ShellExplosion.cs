@@ -49,9 +49,6 @@ namespace Tanks.Complete
 
                 // Calculate the amount of damage the target should take based on it's distance from the shell.
                 float damage = CalculateDamage (targetRigidbody.position);
-
-                // Deal this damage to the tank.
-                targetHealth.TakeDamage (damage);
             }
 
             // Unparent the particles from the shell.

@@ -132,8 +132,9 @@ TextureImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 46209
-  packageName: Tanks! | Complete Project
-  packageVersion: 3.0
+  productId: 196526
+  packageName: Starter Assets - ThirdPerson | Updates in new CharacterController
+    package
+  packageVersion: 1.1.5
   assetPath: Assets/_Tanks/Art/Sprites/UI/UI_Icon_Move.png
-  uploadId: 747463
+  uploadId: 691128
