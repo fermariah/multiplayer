@@ -124,12 +124,12 @@ namespace Tanks.Complete
             
             // get reference to all components
             var move = TankPreview.GetComponent<TankMovement> ();
-            var shoot = TankPreview.GetComponent<TankShooting> ();
+           
             var health = TankPreview.GetComponent<TankHealth>();
 
             // disable them, as this is a visual only preview and doesn't need to react to any gameplay like user input etc.
             move.enabled = false;
-            shoot.enabled = false;
+      
 
             // update the tank stats text with this tank stats
            

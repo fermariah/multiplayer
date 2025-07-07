@@ -8,7 +8,7 @@ namespace Tanks.Complete
         // Variable that indicates if the tank has a PowerUp right now
         public bool m_HasActivePowerUp = false;
         // References to the tank's components
-        private TankShooting m_TankShooting;
+        
         private TankMovement m_TankMovement;
         private TankHealth m_TankHealth;
         private PowerUpHUD m_PowerUpHUD;
@@ -16,7 +16,7 @@ namespace Tanks.Complete
         private void Awake()
         {
             // Get references to the tank's movement, shooting, and health components
-            m_TankShooting = GetComponent<TankShooting>();
+         
             m_TankMovement = GetComponent<TankMovement>();
             m_TankHealth = GetComponent<TankHealth>();
             m_PowerUpHUD = GetComponentInChildren<PowerUpHUD>();

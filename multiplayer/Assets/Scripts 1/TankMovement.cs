@@ -90,7 +90,7 @@ namespace Tanks.Complete
         {
            if(!IsOwner)
            {
-
+                this.GetComponentInChildren<Camera>().gameObject.SetActive(false);
                 //Destroy(this);
            }
         }
@@ -132,7 +132,7 @@ namespace Tanks.Complete
             m_TurnAction.Enable();
             
             // Store the original pitch of the audio source.
-            m_OriginalPitch = m_MovementAudio.pitch;
+           
         }
 
 

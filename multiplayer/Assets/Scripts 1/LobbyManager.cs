@@ -13,13 +13,13 @@ using Unity.Networking.Transport.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManageR : MonoBehaviour
 {
 
     public TMP_InputField playerNameInput;
     public TMP_InputField lobbyCodeInput;
 
-    public Lobby hostLobby, joinnedLobby;
+    public Lobby hosttLobby, joinnedLobby;
     public GameObject lobbyIntro, lobbyPanel;
     public TMP_Text[] lobbyPlayersText;
     public TMP_Text lobbyCodeText;
@@ -29,15 +29,12 @@ public class LobbyManager : MonoBehaviour
     bool startedGame;
 
     // Start is called before the first frame update
-    async void Start()
-    {
-        await UnityServices.InitializeAsync();
-    }
+  
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     async Task Authenticate()
@@ -67,7 +64,7 @@ public class LobbyManager : MonoBehaviour
 
             CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
             {
-                Player = GetPlayer(),
+                Player = GetPlayerTank(),
                 Data = new Dictionary<string, DataObject>
                 {
                     {"StartGame", new DataObject(DataObject.VisibilityOptions.Member, "0") }
@@ -78,8 +75,8 @@ public class LobbyManager : MonoBehaviour
 
             Debug.Log("Criou o lobby " + lobby.LobbyCode);
 
-            hostLobby = lobby;
-            joinnedLobby = hostLobby;
+            hosttLobby = lobby;
+            joinnedLobby = hosttLobby;
             lobbyIntro.SetActive(false);
             lobbyPanel.SetActive(true);
             lobbyCodeText.text = lobby.LobbyCode;
@@ -91,10 +88,7 @@ public class LobbyManager : MonoBehaviour
         {
             Debug.Log(e);
         }
-
-
     }
-
 
     void CheckForLobbyUpdates()
     {
@@ -107,7 +101,7 @@ public class LobbyManager : MonoBehaviour
         ShowPlayersOnLobby();
         if (joinnedLobby.Data["StartGame"].Value != "0")
         {
-            if (hostLobby == null)
+            if (hosttLobby == null)
             {
                 JoinRelay(joinnedLobby.Data["StartGame"].Value);
             }
@@ -119,10 +113,10 @@ public class LobbyManager : MonoBehaviour
 
     async void LobbyHeartBeat()
     {
-        if (hostLobby == null)
+        if (hosttLobby == null)
             return;
 
-        await LobbyService.Instance.SendHeartbeatPingAsync(hostLobby.Id);
+        await LobbyService.Instance.SendHeartbeatPingAsync(hosttLobby.Id);
         Debug.Log("Atualizou lobby");
         UpdateLobby();
         ShowPlayersOnLobby();
@@ -136,7 +130,7 @@ public class LobbyManager : MonoBehaviour
 
             JoinLobbyByCodeOptions createLobbyOptions = new JoinLobbyByCodeOptions
             {
-                Player = GetPlayer()
+                Player = GetPlayerTank()
             };
 
             Lobby lobby = await Unity.Services.Lobbies.LobbyService.Instance.JoinLobbyByCodeAsync(lobbyCodeInput.text, createLobbyOptions);
@@ -160,7 +154,7 @@ public class LobbyManager : MonoBehaviour
 
     }
 
-    Player GetPlayer()
+    Player GetPlayerTank()
     {
         Player player = new Player
         {
@@ -220,12 +214,7 @@ public class LobbyManager : MonoBehaviour
         NetworkManager.Singleton.StartClient();
 
         lobbyPanel.SetActive(false);
-
-
-
     }
-
-
 
     public async void StartGame()
     {
